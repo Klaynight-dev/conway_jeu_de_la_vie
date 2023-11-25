@@ -1,3 +1,7 @@
+# The following code creates a simulation of Conway's Game of Life using Tkinter.
+# It includes functionalities to create a grid, draw live/dead cells, and implement a glider gun pattern.
+# Users can start, stop, and change the animation speed of the simulation.
+
 from tkinter import *
 
 def damier(): #fonction dessinant le tableau
