@@ -247,51 +247,54 @@ def redessiner(): #fonction redessinant le tableau à partir de dico_etat
     
 #les différentes variables:
 
-# taille de la grille
-height = 400
-width = 400
+# Main program
+height = 400  # Grid height
+width = 400  # Grid width
+c = 10  # Cell size
+vitesse = 50  # Animation speed (time between steps in ms)
 
-#taille des cellules
-c = 10
+flag = 0
+dico_etat = {}  # Dictionary containing the number of live cells around each cell
+dico_case = {}  # Dictionary containing coordinates of each cell and a value 0 or 1 if they are dead or alive
+# Assigns a value of 0 (dead) to each cell coordinate
+i = 0
+while i != width / c:
+    j = 0
+    while j != height / c:
+        x = i * c
+        y = j * c
+        dico_case[x, y] = 0
+        j += 1
+    i += 1
 
-#vitesse de l'animation (en réalité c'est l'attente entre chaque étapes en ms)
-vitesse=50
-
-flag=0
-dico_etat = {} #dictionnaire contenant le nombre de cellules vivantes autour de chaque cellule
-dico_case = {} #dictionnaire contenant les coordonnées de chaques cellules et une valeur 0 ou 1 si elles sont respectivement mortes ou vivantes
-i=0
-while i!= width/c: #assigne une valeur 0(morte) a chaque coordonnées(cellules) (valeur par défault en quelque sorte ^^)
-    j=0
-    while j!= height/c:
-        x=i*c
-        y=j*c
-        dico_case[x,y]=0
-        j+=1
-    i+=1
-
-#programme "principal" 
+# Main tkinter window
 fen1 = Tk()
 
-can1 = Canvas(fen1, width =width, height =height, bg ='white')
+# Canvas for the grid
+can1 = Canvas(fen1, width=width, height=height, bg='white')
 can1.bind("<Button-1>", click_gauche)
 can1.bind("<Button-3>", click_droit)
-can1.pack(side =TOP, padx =5, pady =5)
+can1.pack(side=TOP, padx=5, pady=5)
 
+# Drawing the initial grid
 damier()
 
-b1 = Button(fen1, text ='Go!', command =go)
-b2 = Button(fen1, text ='Stop', command =stop)
-b1.pack(side =LEFT, padx =3, pady =3)
-b2.pack(side =LEFT, padx =3, pady =3)
-b3 = Button(fen1, text ='Canon planeur', command =canon)
-b3.pack(side =LEFT, padx =3, pady =3)
+# Buttons for controlling the animation
+b1 = Button(fen1, text='Go!', command=go)
+b2 = Button(fen1, text='Stop', command=stop)
+b1.pack(side=LEFT, padx=3, pady=3)
+b2.pack(side=LEFT, padx=3, pady=3)
 
+# Button for drawing a predefined pattern
+b3 = Button(fen1, text='Canon planeur', command=canon)
+b3.pack(side=LEFT, padx=3, pady=3)
+
+# Entry for changing the animation speed
 entree = Entry(fen1)
 entree.bind("<Return>", change_vit)
-entree.pack(side =RIGHT)
+entree.pack(side=RIGHT)
 chaine = Label(fen1)
-chaine.configure(text = "Attente entre chaque étape (ms) :")
-chaine.pack(side =RIGHT)
+chaine.configure(text="Wait between each step (ms):")
+chaine.pack(side=RIGHT)
 
 fen1.mainloop()
